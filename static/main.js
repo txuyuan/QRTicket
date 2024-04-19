@@ -95,22 +95,17 @@ function ticketQueryResponse(mode, response){
   }
 
   if (statusCode == 1 || statusCode == 0){
-    if (response.split("\n").length != 4) {
-      status = "Invalid server response"
-      displayResponse(false, status, 0, "", false)
-    }
     const number = response.split('\n')[1]
     const name = response.split("\n")[2]
-    const claimed = (response.split("\n")[3] == 1)
-    displayResponse(success, status, number, name, claimed)
+    displayResponse(success, status, number, name)
   } else {
-    displayResponse(success, status, 0, "", false)
+    displayResponse(success, status, 0, "")
   }
 }
 
 let timeout = null
-function displayResponse(success, status, number, name, claimed){ 
-  console.log(`${success}, ${status}, ${number}, ${name}, ${claimed}`)
+function displayResponse(success, status, number, name){ 
+  console.log(`${success}, ${status}, ${number}, ${name}`)
   
   const resultsElm = document.getElementById("results") 
   const prevSuccess = resultsElm.classList.contains("success")

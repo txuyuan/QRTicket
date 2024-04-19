@@ -13,18 +13,16 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 SPREADSHEET_ID = "1cJy3DYsIVj5pbszMqrekUNod-PeCrM7OCNKrhstQsnY"
 ROOT_ROW = 2 
 
-SHEET_RANGE = "A2:E"
+SHEET_RANGE = "A2:D"
 CODE_INDEX = 0 
 NUMBER_INDEX = 1
 NAME_INDEX = 2 
 ENTERED_INDEX = 3 
-CLAIMED_INDEX = 4
 
 CODE_COL = "A"
 NUMBER_COL = "B"
 NAME_COL = "C"
 ENTERED_COL = "D"
-CLAIMED_COL = "E"
 
 loop = None
 def start_loop():
@@ -82,7 +80,6 @@ def checkin():
             # Fetch other details
             number = values[i][NUMBER_INDEX]
             name = values[i][NAME_INDEX]
-            claimed = values[i][CLAIMED_INDEX]
             
             if ticketStatus[i] == "FALSE":
                 # Set status to true
@@ -92,11 +89,11 @@ def checkin():
                 run_coroutine_in_loop2(updateCallback(sheets, status_cell))
 
                 logLine("Check-in:  " + code + ": Success")
-                return f"1\n{number}\n{name}\n{claimed}"
+                return f"1\n{number}\n{name}"
             elif ticketStatus[i] == "TRUE":
                 # Already checked in, return 0
                 logLine("Check-in:  " + code + ": Already checked in")
-                return f"0\n{number}\n{name}\n{claimed}"
+                return f"0\n{number}\n{name}"
         else:
             # Invalid ticket code, return -1
             logLine("Check-in:  " + code + ": Invalid ticket code")
