@@ -5,7 +5,6 @@ import sheetsApi.sheets as sheets
 
 import asyncio
 import threading
-import time
 
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
