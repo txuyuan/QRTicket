@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+  <head>
+    <title>QRTicker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="static/main.js" type="module"></script>
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        --success: #70e370;
+        --failure: #ff6666;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .app {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      .scanner {
+        width: calc(100% + 1.5rem);
+        height: 80vh;
+        margin: -0.5rem -0.75rem;
+      }
+
+      #qrVideo {
+        width: 100%;
+        height: 100%;
+      }
+
+      #results {
+        position: fixed;
+        inset: 0;
+        background-color: #33333399;    
+
+        display: none;
+        place-items: center;
+      }
+      #results.visible {
+        display: grid;
+      }
+
+      .details {
+        width: 80%;
+        height: 70%;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        
+        text-align: center;
+        color: white;
+        background-color: var(--failure)
+      }
+      .success .details {
+        color: black;
+        background-color: var(--success)
+      }
+
+      .details > * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .mark {
+        height: 6rem;
+        width: 6rem;
+        display: block;
+      }
+      #successMark {
+        display: none;
+      }
+      .success #successMark {
+        display: block;
+      }
+      .success #failureMark {
+        display: none;
+      }
+
+      .status {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      .details p {
+        margin: 0;
+      }
+
+      p.label {
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+      .value {
+        font-weight: 600;
+        font-size: 28px;
+      }
+
+      /*
+      .modePanel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0.5rem;
+        gap: 0.25rem;
+      }
+
+      .mode {
+        display: grid;
+        place-items: center;
+
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--primary);
+        border: 5px solid var(--primary);
+      }
+      .mode.selected {
+        background-color: var(--primary);
+        color: white;
+      }*/
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="scanner">
+        <video id="qrVideo"></video>
+      </div>
+
+      <div class="results" id="results">
+        <div class="details">
+          <div>
+            <img class="mark" src="/static/assets/success.png" id="successMark">
+            <img class="mark" src="/static/assets/failure.png" id="failureMark">
+          </div>
+          
+          <p class="status" id="status">Status</p>
+          
+          <div>
+            <div>
+              <p class="value" id="number">-1</p>
+            </div>
+            <div>
+              <p class="value" id="name">Placeholder name</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+      <div class="modePanel">
+        <button class="mode selected" id="modeOne">
+          Check-In
+        </button>
+        <button class="mode" id="modeTwo">Check-Out</button>
+      </div>
+      -->
+    </div>
+  </body>
+</html>
