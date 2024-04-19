@@ -106,6 +106,9 @@ function ticketQueryResponse(mode, response){
 let timeout = null
 function displayResponse(success, status, number, name){ 
   console.log(`${success}, ${status}, ${number}, ${name}`)
+
+  const audio = new Audio("/static/assets/twobeeps.mp3")
+  audio.play()
   
   const resultsElm = document.getElementById("results") 
   const prevSuccess = resultsElm.classList.contains("success")
