@@ -9,19 +9,19 @@ import threading
 app = flask.Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-SPREADSHEET_ID = "1cJy3DYsIVj5pbszMqrekUNod-PeCrM7OCNKrhstQsnY"
+SPREADSHEET_ID = "1k9nABcbacmfZ0LiJk-q-dDhKOpDF0PAtMCU22adD57Y"
 ROOT_ROW = 2 
 
-SHEET_RANGE = "A2:D"
-CODE_INDEX = 0 
-NUMBER_INDEX = 1
-NAME_INDEX = 2 
-ENTERED_INDEX = 3 
+SHEET_RANGE = "A2:F"
+CODE_INDEX = 1
+NUMBER_INDEX = 0
+NAME_INDEX = 4 
+ENTERED_INDEX = 5
 
-CODE_COL = "A"
-NUMBER_COL = "B"
-NAME_COL = "C"
-ENTERED_COL = "D"
+CODE_COL = "B"
+NUMBER_COL = "A"
+NAME_COL = "E"
+ENTERED_COL = "F"
 
 loop = None
 def start_loop():
@@ -58,7 +58,7 @@ def index():
     return flask.render_template("index.html")
 
 async def updateCallback(sheets, cell):
-    sheets.updateValue(SPREADSHEET_ID, f"LinkTicketSheet!{cell}", True)
+    sheets.updateValue(SPREADSHEET_ID, f"Tickets!{cell}", True)
 
 @app.route('/checkin')
 def checkin():
@@ -67,12 +67,12 @@ def checkin():
     logLine("Check-in:  " + code)
 
     try:
-        values = sheets.getValues(SPREADSHEET_ID, f"LinkTicketSheet!{SHEET_RANGE}", run_coroutine_in_loop)
+        values = sheets.getValues(SPREADSHEET_ID, f"Tickets!{SHEET_RANGE}", run_coroutine_in_loop)
+        print(values[0])
 
         ticketCode = [row[CODE_INDEX] for row in values]
         ticketStatus = [row[ENTERED_INDEX] for row in values]
         rawCode = code.lstrip("TICKET")
-                
         
         if rawCode in ticketCode:
             i = ticketCode.index(rawCode)
